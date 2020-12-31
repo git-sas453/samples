@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="jquery-3.5.1.min.js"></script>
+
+    <script>
+
+
+        $(document).ready(function(){
+            $.post("/common/getCurrentUser", function (response) {
+                console.info(response);
+                $("#username").html(response.username);
+
+                $("*[auth]").hide();
+
+                for(index in response.permissions) {
+                    $("*[auth='" + response.permissions[index] + "']").show();
+                }
+
+            })
+        });
+
+        function logout() {
+            $.post("/common/logout", function (response) {
+                console.info(response);
+                location.href = "/html/login.html";
+            })
+        }
+
+
+    </script>
+</head>
+<body>
+Welcome <span id="username"></span> <br>
+
+<input type="button" onclick="logout();" value="logout"/>
+
+
+<br>
+<input type="button" value="查看电话号" auth="mobile"/>
+<input type="button" value="查看薪水" auth="salary"/>
+<br>
+http://localhost:8081/mobile/query
+<br>
+http://localhost:8081/salary/query
+
+</body>
+</html>

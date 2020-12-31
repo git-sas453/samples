@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="jquery-3.5.1.min.js"></script>
+
+    <script>
+        function login() {
+            $.post("/common/login", {
+                "username":$("#username").val(),
+                "password":$("#password").val(),
+                "rememberMe":$("#rememberMe").val()
+            }, function (response) {
+                if(response == "login success") {
+                    location.href = "main.html";
+                } else {
+                    alert(response);
+                    return false;
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+
+<input name="username" id="username" type="text" /> </br>
+<input name="password" id="password" type="password" /> </br>
+<input name="rememberMe" id="rememberMe" type="checkbox"/> </br>
+<button onclick="login()"> login </button>
+
+</body>
+</html>
